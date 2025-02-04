@@ -1,6 +1,2 @@
 prepare
-shower
-prepare
-shower
-buy fruits
-Drink a coffee
+clean the table

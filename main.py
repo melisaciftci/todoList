@@ -7,20 +7,22 @@ while True:
         case 'add':
             todo = input("Enter a todo: ") + '\n'
 
-            file = open('todos.txt', 'r')
+            '''file = open('todos.txt', 'r')
             todos = file.readlines()
-            file.close()
+            file.close()'''
+
+            with open('todos.txt', 'r') as file: # : means indented
+                todos = file.readlines() # no need to close file.
 
             todos.append(todo)
 
-            file = open('todos.txt', 'w')
-            file.writelines(todos)
-            file.close()
+            with open('todos.txt', 'w') as file:
+             todos = file.writelines(todos)
 
         case 'show':
-            file = open('todos.txt', 'r')
-            todos = file.readlines()
-            file.close()
+
+            with open('todos.txt', 'r') as file:
+                todos = file.readlines()
 
             # new_todos = [item.strip('\n') for item in todos] -> list comprehension
 
@@ -33,13 +35,33 @@ while True:
             break
         case 'edit':
             number = int(input("Number of to the todo to edit: "))
-            number = number - 1
-            new_todo = input("Enter new todo: ")
+            number = number - 1 # to solve the index issue.
 
-            todos[number] = new_todo
+            with open('todos.txt', 'r') as file:
+                todos=file.readlines()
+
+            new_todo = input("Enter new todo: ").strip() + '\n' # newline character displays todos in some order. Must be used.
+            todos[number] = new_todo + '\n'
+
+            with open('todos.txt', 'w') as file:
+                todos=file.writelines(todos)
+
         case 'complete':
             number = int(input("Number of to the todo to complete: "))
+
+            with open('todos.txt', 'r') as file:
+                todos = file.readlines()
+
+            index = number - 1
+            todo_to_remove = todos[index].strip('\n')
             todos.pop(number - 1)
+
+            with open('todos.txt', 'w') as file:
+                todos=file.writelines(todos)
+
+            message = f"Todo {todo_to_remove} was removed from the list."
+            print(message)
+
         case _:
             print("You entered an unknown command!")
 print('Bye!')
