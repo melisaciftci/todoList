@@ -1,2 +1,4 @@
 prepare
 clean the table
+Play soccer
+clean the bag
