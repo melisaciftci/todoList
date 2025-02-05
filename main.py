@@ -18,7 +18,7 @@ while True:
         with open('todos.txt', 'w') as file:
             todos = file.writelines(todos)
 
-    if 'show' in user_action:
+    elif 'show' in user_action:
 
         with open('todos.txt', 'r') as file:
             todos = file.readlines()
@@ -30,24 +30,24 @@ while True:
             item = item.title()
             row = f'{index + 1}-{item}'
             print(row)
-    if 'exit' in user_action:
+    elif 'exit' in user_action:
         break
-    if 'edit' in user_action:
-        number = int(input("Number of to the todo to edit: "))
+    elif 'edit' in user_action:
+        number = int(user_action[5:])
+        print(number)
         number = number - 1  # to solve the index issue.
 
         with open('todos.txt', 'r') as file:
             todos = file.readlines()
 
-        new_todo = input(
-            "Enter new todo: ").strip() + '\n'  # newline character displays todos in some order. Must be used.
+        new_todo = input("Enter new todo: ")
         todos[number] = new_todo + '\n'
 
         with open('todos.txt', 'w') as file:
             todos = file.writelines(todos)
 
-    if 'complete' in user_action:
-        number = int(input("Number of to the todo to complete: "))
+    elif 'complete' in user_action:
+        number = int(user_action[9:])
 
         with open('todos.txt', 'r') as file:
             todos = file.readlines()
@@ -62,6 +62,7 @@ while True:
         message = f"Todo {todo_to_remove} was removed from the list."
         print(message)
 
-    if '-' in user_action:
-        print("You entered an unknown command!")
+    else:
+        print("Command is invalid!")
+
 print('Bye!')
